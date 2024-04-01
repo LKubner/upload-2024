@@ -11,10 +11,24 @@ if (file_exists(__DIR__ . $pastadestino . $nomeArquivo)){
 exit;
 }
 
-
+var_dump (__DIR__ . $pastadestino . $nomeArquivo);
 
 //verificar se o dispositivo ja existe
-file_exists(__DIR__ . $pastadestino . $nomeArquivo);
+if($_FILES['arquivo']['size'] > 10000000)( //10M
+    echo "arquivo muito grande";
+    exit;
+)
+
+
+var_dump(strtolower(pathinfo($nomeArquivo, PATHINFO_EXTENSION)));
+$extensao = strtolower(pathinfo($nomeArquivo, PATHINFO_EXTENSION));
+if ($extensao != "jpg" and $extensao !="png" and !="gif"){
+    echo "Isso nao é uma image";
+    exit;
+
+
+}
+
 
 ?>
 
