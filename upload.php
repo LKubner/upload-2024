@@ -1,8 +1,10 @@
 <?php
 // definiu a pasta de destino
 $pastadestino = "/uploads/";
-var_dump ($_FILES['arquivo']['name']);
-// pegamos o nome do arquivo
+var_dump($_POST);
+//imprimir o tamanho do arquivo
+var_dump ($_FILES['arquivo']['size']);
+ //pegamos o nome do arquivo
 $nomeArquivo = $_FILES['arquivo']['name'];
 
 //verificar se o arquivo ja existe
@@ -13,17 +15,18 @@ exit;
 
 var_dump (__DIR__ . $pastadestino . $nomeArquivo);
 
-//verificar se o dispositivo ja existe
-if($_FILES['arquivo']['size'] > 10000000)( //10M
+//verificar se o tamanho esperarado é maior que 10mb
+if($_FILES['arquivo']['size'] > 10000000){ //10M
     echo "arquivo muito grande";
     exit;
-)
-
-
-var_dump(strtolower(pathinfo($nomeArquivo, PATHINFO_EXTENSION)));
+}
+//verificar se o arquivo é uma imagem
 $extensao = strtolower(pathinfo($nomeArquivo, PATHINFO_EXTENSION));
-if ($extensao != "jpg" and $extensao !="png" and !="gif"){
-    echo "Isso nao é uma image";
+var_dump($_FILES['arquivo'['name']]);
+var_dump(pathinfo($_FILES['arquivo']['name'], PATHINFO_FILENAME));
+
+if ($extensao != "jpg" && $extensao !="png" && !="gif"){
+    echo "Isso nao é uma imagem";
     exit;
 
 
