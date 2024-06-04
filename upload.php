@@ -1,7 +1,7 @@
 <?php
 // definiu a pasta de destino
 $pastadestino = "/uploads/";
-var_dump($_POST);
+var_dump($_FILES);
 //imprimir o tamanho do arquivo
 var_dump ($_FILES['arquivo']['size']);
  //pegamos o nome do arquivo
@@ -22,17 +22,34 @@ if($_FILES['arquivo']['size'] > 10000000){ //10M
 }
 //verificar se o arquivo é uma imagem
 $extensao = strtolower(pathinfo($nomeArquivo, PATHINFO_EXTENSION));
-var_dump($_FILES['arquivo'['name']]);
+var_dump($_FILES['arquivo']['name']);
 var_dump(pathinfo($_FILES['arquivo']['name'], PATHINFO_FILENAME));
 
-if ($extensao != "jpg" && $extensao !="png" && !="gif"){
+if ($extensao != "jpg" && $extensao != "png" && $extensao !="gif" && $extensao !="jfif" && $extensao !="svg"){
     echo "Isso nao é uma imagem";
     exit;
 
 
+} 
+
+
+
+// verificar se é uma imagem de fato
+if (getimagesize($_FILES['arquivo']['tmp_name']) === false) {
+    echo "Problemas ao enviar a imagem. Tente novamente.";
+    die();
 }
 
+$nomearq = uniqid();
+//se deu certo até aqui
+$fezupload = move_uploaded_file($_FILES['arquivo']['tmp_name'], __DIR__ .  $pastadestino . $_nomearq . "." . $extensao);
+        
 
+if ($fezupload == true){
+    header("location:index.php");
+} else {
+    echo "erro ao mover arquivo";
+}
 ?>
 
 
