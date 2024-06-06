@@ -42,14 +42,21 @@ if (getimagesize($_FILES['arquivo']['tmp_name']) === false) {
 
 $nomearq = uniqid();
 //se deu certo até aqui
-$fezupload = move_uploaded_file($_FILES['arquivo']['tmp_name'], __DIR__ .  $pastadestino . $_nomearq . "." . $extensao);
+$fezupload = move_uploaded_file($_FILES['arquivo']['tmp_name'], __DIR__ .  $pastadestino . $nomearq . "." . $extensao);
         
 
 if ($fezupload == true){
+    $conexao = mysqli_connect("localhost","root","","upload_arquivos");
+    $sql = "INSERT INTO arquivo (Nome_arquivo) VALUES ('$nomearq . $extensao')";
+    $resultado = mysqli_query($conexao, $sql);
+    if ($resultado != false) {
     header("location:index.php");
 } else {
     echo "erro ao mover arquivo";
+} } else {
+    echo "Erro ao registrar o arquivo no banco de dados.";
 }
+
 ?>
 
 
