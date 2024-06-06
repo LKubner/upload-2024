@@ -1,12 +1,12 @@
 <?php
-$conexao = mysqli_connect("localhost","root","","upload_Arquivos")
+$conexao = mysqli_connect("localhost","root","","upload_Arquivos");
 $sql = "SELECT * FROM arquivo";
 $resultado = mysqli_query($conexao, $sql);
 if ($resultado != false) {
     $arquivos = mysqli_fetch_all($resultado, MYSQLI_BOTH);
 } else {
     echo "Erro ao executar comando SQL.";
-    die(;)
+    die();
 } 
 ?>
 
@@ -25,5 +25,23 @@ if ($resultado != false) {
         <input type="submit" value="Upload Image" bname="submit"> <br>
 </form>
 <br> <br>
+<table>
+    <thead>
+        <tr>
+             <th>Nome do Arquivo</th>
+             <th colspan="2"> Opções </th>
+    </tr>
+    </thead>
+    <tbody>
+     <?php
+     foreach ($arquivos as $arquivo) {
+        echo "<td>" . $arquivo['Nome_arquivo'] . "</td>";
+        echo "<td> <a href='alterar.php?Nome_arquivo=".
+                $arquivo['Nome_arquivo'] . "'>Alterar</td>";
+                echo "<td><button>Excluir</button></td></tr>";
+     }
+     ?>
+     </tbody>
+    </table> 
 </body>
 </html>
