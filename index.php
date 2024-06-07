@@ -21,7 +21,7 @@ if ($resultado != false) {
 <body>
     <form action="upload.php" method="post" enctype="multipart/form-data">
     Selecione a imagem para dar upload: <br>
-        <input type="file" name="arquivo"> <br>
+        <input type="file" name="arquivo"> <br> 
         <input type="submit" value="Upload Image" bname="submit"> <br>
 </form>
 <br> <br>
@@ -35,13 +35,35 @@ if ($resultado != false) {
     <tbody>
      <?php
      foreach ($arquivos as $arquivo) {
-        echo "<td>" . $arquivo['Nome_arquivo'] . "</td>";
-        echo "<td> <a href='alterar.php?Nome_arquivo=".
-                $arquivo['Nome_arquivo'] . "'>Alterar</td>";
-                echo "<td><button>Excluir</button></td></tr>";
+        $arq = $arquivo['Nome_arquivo'];
+        echo "<tr>";
+        echo "<td>$arq</td>";//1a coluna com o nome do arquivo
+        echo "<td>"; //iniciar a 2a coluna
+        echo "<a "; //abriu a tag A ( o link)
+        echo "href='alterar.php?Nome_arquivo=$arq'>"; //inseriu o link do arquivo
+        echo "Alterar"; //imprime o texto da tag a
+        echo "</a>"; //fechei a tag a (fechei o link)
+        echo "</td>"; //fechei a segunda coluna
+        echo "<td>"; //abri a terceira coluna
+        echo "<button "; // abrir o botão
+        echo "onclick="; // criou o atributo onclick
+        echo"'excluir(\"$arq\");'>"; //chamamos a função excluir
+        echo "Excluir";
+        echo "</button>"; // fechar o botão
+        echo "</td>"; // fechar a terceira coluna
+        echo "</tr>"; // fechar a linha
+
+
+         //echo "<td><button onclick='excluir(\"" . $arquivo['Nome_arquivo'] . "\");'>Excluir</button></td></tr>";
      }
      ?>
      </tbody>
     </table> 
+
+    <script>
+        function excluir(Nome_arquivo) {
+            confirm("Você tem certeza que deseja excluir este arquivo " + Nome_arquivo + "?");
+        }
+        </script>
 </body>
 </html>

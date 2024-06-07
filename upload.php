@@ -51,7 +51,7 @@ if ($fezupload == true){
     $resultado = mysqli_query($conexao, $sql);
     if ($resultado != false) {
         //se for uma alteração de arquivo
-        if (isset($_POST['Nome_Arquivo'])){
+        if (isset($_POST['Nome_arquivo'])){
           $apagou = unlink( __DIR__ .  $pastadestino . $_POST['Nome_arquivo']);
           if ($apagou == true) {
             $sql = "DELETE FROM arquivo WHERE Nome_arquivo='"
